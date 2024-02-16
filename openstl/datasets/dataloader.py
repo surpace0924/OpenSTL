@@ -38,6 +38,12 @@ def load_data(dataname, batch_size, val_batch_size, num_workers, data_root, dist
     elif dataname == 'taxibj':
         from .dataloader_taxibj import load_data
         return load_data(batch_size, val_batch_size, data_root, num_workers, **cfg_dataloader)
+    elif 'jartest' in dataname:
+        from .dataloader_jartest import load_data
+        cfg_dataloader['data_name'] = dataname
+        res_dir = kwargs.get('res_dir', 'res')
+        ex_name = kwargs.get('ex_name', 'jartest')
+        return load_data(batch_size, val_batch_size, data_root, num_workers, res_dir, ex_name, **cfg_dataloader)
     elif 'weather' in dataname:  # 'weather', 'weather_t2m', etc.
         from .dataloader_weather import load_data
         data_split_pool = ['5_625', '2_8125', '1_40625']
